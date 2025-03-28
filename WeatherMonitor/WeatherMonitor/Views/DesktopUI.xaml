@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherMonitor.DesktopUI"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Toolkit.Charts;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:segments="clr-namespace:Syncfusion.Maui.Toolkit.SegmentedControl;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:gauge="clr-namespace:Syncfusion.Maui.Gauges;assembly=Syncfusion.Maui.Gauges"
+             xmlns:inputs="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:local="clr-namespace:WeatherMonitor"
+             Title="DesktopUI">
+
+    <ContentPage.BindingContext>
+        <local:WeatherViewModel x:Name="viewModel" />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Sen" />
+        </Style>
+
+        <x:Array x:Key="RadialBarGradients" Type="{x:Type Brush}">
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#73C2FB" Offset="0.0"/>
+                <!-- Bright Rainy Sky -->
+                <GradientStop Color="#4682B4" Offset="1.0"/>
+                <!-- Steel Blue -->
+            </LinearGradientBrush>
+
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFE4B5" Offset="0.0"/>
+                <!-- Light Peach -->
+                <GradientStop Color="#FFA07A" Offset="1.0"/>
+                <!-- Light Coral -->
+            </LinearGradientBrush>
+
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#88D8B0" Offset="0.0"/>
+                <!-- Humid Mint Green -->
+                <GradientStop Color="#60C0A8" Offset="1.0"/>
+                <!-- Aqua Green -->
+            </LinearGradientBrush>
+
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFA500" Offset="0.0"/>
+                <!-- Bright Orange -->
+                <GradientStop Color="#FF8C00" Offset="1.0"/>
+                <!-- Dark Orange -->
+            </LinearGradientBrush>
+
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFD700" Offset="0.0"/>
+                <!-- Golden Yellow -->
+                <GradientStop Color="#FFA500" Offset="1.0"/>
+                <!-- Bright Orange -->
+            </LinearGradientBrush>
+
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFE4B5" Offset="0.0"/>
+                <!-- Light Peach -->
+                <GradientStop Color="#FFA07A" Offset="1.0"/>
+                <!-- Light Coral -->
+            </LinearGradientBrush>
+        </x:Array>
+
+        <RadialGradientBrush x:Key="UVIndexTrackFill">
+            <GradientStop Color="Green" Offset="0.0" />
+            <GradientStop Color="Yellow" Offset="0.25" />
+            <GradientStop Color="Orange" Offset="0.5" />
+            <GradientStop Color="Red" Offset="0.75" />
+            <GradientStop Color="Violet" Offset="1.0" />
+        </RadialGradientBrush>
+
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="3.5*, 6.5*"
+          ColumnDefinitions="7.5*, 2.5*"
+          Padding="30">
+
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#B3E5FF" Offset="0.0" />
+                <GradientStop Color="#C2E9FF" Offset="1.0" />
+            </LinearGradientBrush>
+            <!--<LinearGradientBrush>
+                <GradientStop Color="#6264A7" Offset="0.0" />
+                <GradientStop Color="#6264A7" Offset="1.0" />
+            </LinearGradientBrush>-->
+        </Grid.Background>
+
+        <!--#region OverviewPanel-->
+
+        <Border Grid.Row="0"
+                Grid.ColumnSpan="2"
+                BackgroundColor="white" 
+                StrokeThickness="0"
+                Margin="0,0,0,10"
+                StrokeShape="RoundRectangle 30,30,30,30">
+            
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                        Opacity="0.4"
+                        Radius="10" />
+            </Border.Shadow>
+
+            <Grid ColumnDefinitions="2.3*, 1.2*, 3*, 2*, 1.5*">
+
+                <VerticalStackLayout Grid.Column="0" Spacing="10" VerticalOptions="Center" Padding="35,0,0,0">
+
+                    <HorizontalStackLayout>
+                        <Path Width="16"
+                              Height="16"
+                              Data="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                              Fill="LightSlateGray"
+                              StrokeLineJoin="Round"
+                              StrokeThickness="1.5" />
+                        <Label Grid.Column="1" Margin="5,2,0,0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding City}" FontSize="18" FontFamily="Sen" FontAttributes="Bold" TextColor="LightSlateGray" />
+                                    <Span Text=", " />
+                                    <Span Text="{Binding Date}" FontSize="16" FontFamily="Sen"  TextColor="LightSlateGray" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                    <Grid RowDefinitions="auto, auto" ColumnDefinitions="auto, auto">
+
+                        <Border Grid.Row="0" 
+                                Grid.Column="0" 
+                                HeightRequest="52" 
+                                WidthRequest="130"
+                                Margin="5"
+                                Padding="5,0,5,0"
+                                StrokeThickness="0"
+                                Background="#85D3FD"
+                                StrokeShape="RoundRectangle 8">
+
+                            <Grid ColumnDefinitions="0.3*, 0.7*">
+                                <Path Width="18"
+                                      Height="18"
+                                      Data="M7 4V3C7 1.89543 6.10457 1 5 1C3.89543 1 3 1.89543 3 3V13.5351C1.8044 14.2267 1 15.5194 1 17C1 19.2091 2.79086 21 5 21C7.20914 21 9 19.2091 9 17C9 15.5194 8.1956 14.2267 7 13.5351V10M7 4H9M7 4V7M7 7H10M7 7V10M7 10H9M13 10.8889C13 12.6071 14.3431 14 16 14C17.6569 14 19 12.6071 19 10.8889C19 9.17067 16 6 16 6C16 6 13 9.17067 13 10.8889Z"
+                                      Stroke="White"
+                                      StrokeLineJoin="Round"
+                                      VerticalOptions="Center"
+                                      HorizontalOptions="Center"
+                                      StrokeThickness="1.5" />
+                                <Label Grid.Column="1" Margin="5,3,0,0" VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Dew" FontFamily="Sen" FontAttributes="Bold" TextColor="White" />
+                                            <Span Text="&#10;" />
+                                            <Span Text="{Binding WeatherData[0].Dew, StringFormat='{0}°'}" FontFamily="Sen"  TextColor="White" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+
+                        </Border>
+
+                        <Border Grid.Row="0" 
+                                Grid.Column="1" 
+                                HeightRequest="52" 
+                                WidthRequest="130"
+                                Margin="5"
+                                Padding="5,0,5,0"
+                                StrokeThickness="0"
+                                Background="#CC778899"
+                                StrokeShape="RoundRectangle 8">
+
+                            <Grid ColumnDefinitions="0.3*, 0.7*">
+                                <Path Width="18"
+                                      Height="18"
+                                      Data="M11 1V3M11 19V21M3 11H1M5.31412 5.31412L3.8999 3.8999M16.6859 5.31412L18.1001 3.8999M5.31412 16.69L3.8999 18.1042M16.6859 16.69L18.1001 18.1042M21 11H19M16 11C16 13.7614 13.7614 16 11 16C8.23858 16 6 13.7614 6 11C6 8.23858 8.23858 6 11 6C13.7614 6 16 8.23858 16 11Z"
+                                      Stroke="White"
+                                      StrokeLineJoin="Round"
+                                      StrokeThickness="1.5"
+                                      VerticalOptions="Center"
+                                      HorizontalOptions="Center" />
+                                <Label Grid.Column="1" Margin="5,3,0,0" VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="UV Index" FontFamily="Sen" FontAttributes="Bold" TextColor="White" />
+                                            <Span Text="&#x0a;" />
+                                            <Span Text="{Binding WeatherData[0].UVIndex}" FontFamily="Sen"  TextColor="White" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+
+                        </Border>
+
+                        <Border Grid.Row="1" 
+                                Grid.Column="0" 
+                                HeightRequest="52" 
+                                WidthRequest="130"
+                                Margin="5"
+                                Padding="5,0,5,0"
+                                StrokeThickness="0"
+                                Background="#CC778899"
+                                StrokeShape="RoundRectangle 8">
+
+                            <Grid ColumnDefinitions="0.3*, 0.7*">
+                                <Path Width="18"
+                                      Height="18"
+                                      Data="M3 13C3.55228 13 4 12.5523 4 12C4 11.4477 3.55228 11 3 11V13ZM1 11C0.447715 11 0 11.4477 0 12C0 12.5523 0.447715 13 1 13V11ZM15 13.5351L15.5007 14.4007C15.8097 14.222 16 13.8921 16 13.5351H15ZM19 13.5351H18C18 13.8921 18.1903 14.222 18.4993 14.4007L19 13.5351ZM11.3848 9.02478C11.9325 9.09561 12.4339 8.70901 12.5048 8.16129C12.5756 7.61356 12.189 7.11213 11.6413 7.04129L11.3848 9.02478ZM8.5019 16.3312C8.98031 16.6072 9.59183 16.443 9.86776 15.9646C10.1437 15.4862 9.97955 14.8747 9.50114 14.5987L8.5019 16.3312ZM10 4C10 4.55228 10.4477 5 11 5C11.5523 5 12 4.55228 12 4H10ZM12 2C12 1.44772 11.5523 1 11 1C10.4477 1 10 1.44772 10 2H12ZM6.32133 18.0929C6.71186 17.7024 6.71186 17.0692 6.32133 16.6787C5.93081 16.2882 5.29764 16.2882 4.90712 16.6787L6.32133 18.0929ZM3.49291 18.0929C3.10238 18.4834 3.10238 19.1166 3.49291 19.5071C3.88343 19.8976 4.51659 19.8976 4.90712 19.5071L3.49291 18.0929ZM4.70711 7.12132C5.09763 7.51184 5.7308 7.51184 6.12132 7.12132C6.51184 6.7308 6.51184 6.09763 6.12132 5.70711L4.70711 7.12132ZM4.70711 4.29289C4.31658 3.90237 3.68342 3.90237 3.29289 4.29289C2.90237 4.68342 2.90237 5.31658 3.29289 5.70711L4.70711 4.29289ZM3 11H1V13H3V11ZM14 3V13.5351H16V3H14ZM20 17C20 18.6569 18.6569 20 17 20V22C19.7614 22 22 19.7614 22 17H20ZM17 20C15.3431 20 14 18.6569 14 17H12C12 19.7614 14.2386 22 17 22V20ZM14 17C14 15.8908 14.6014 14.921 15.5007 14.4007L14.4993 12.6695C13.0074 13.5325 12 15.148 12 17H14ZM18.4993 14.4007C19.3986 14.921 20 15.8908 20 17H22C22 15.148 20.9926 13.5325 19.5007 12.6695L18.4993 14.4007ZM17 2C17.5523 2 18 2.44772 18 3H20C20 1.34315 18.6569 0 17 0V2ZM17 0C15.3431 0 14 1.34315 14 3H16C16 2.44772 16.4477 2 17 2V0ZM11.6413 7.04129C10.4948 6.89303 9.33244 7.14659 8.3519 7.75882L9.41114 9.45529C9.99947 9.08796 10.6969 8.93582 11.3848 9.02478L11.6413 7.04129ZM8.3519 7.75882C7.37136 8.37105 6.63324 9.30413 6.26316 10.3993L8.1579 11.0396C8.37995 10.3825 8.82281 9.82263 9.41114 9.45529L8.3519 7.75882ZM6.26316 10.3993C5.89308 11.4944 5.91389 12.6839 6.32206 13.7655L8.19324 13.0593C7.94833 12.4104 7.93585 11.6966 8.1579 11.0396L6.26316 10.3993ZM6.32206 13.7655C6.73023 14.847 7.50054 15.7537 8.5019 16.3312L9.50114 14.5987C8.90032 14.2522 8.43814 13.7082 8.19324 13.0593L6.32206 13.7655ZM12 4V2H10V4H12ZM4.90712 16.6787L3.49291 18.0929L4.90712 19.5071L6.32133 18.0929L4.90712 16.6787ZM6.12132 5.70711L4.70711 4.29289L3.29289 5.70711L4.70711 7.12132L6.12132 5.70711ZM17 17V19C18.1046 19 19 18.1046 19 17H17ZM17 17H15C15 18.1046 15.8954 19 17 19V17ZM17 17V15C15.8954 15 15 15.8954 15 17H17ZM17 17H19C19 15.8954 18.1046 15 17 15V17ZM18 3V13.5351H20V3H18Z"
+                                      Fill="White"
+                                      VerticalOptions="Center"
+                                      HorizontalOptions="Center" />
+                                <Label Grid.Column="1" Margin="5,3,0,0" VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Maximum" FontFamily="Sen" FontAttributes="Bold" TextColor="White" />
+                                            <Span Text="&#10;" />
+                                            <Span Text="{Binding MaxTemperature, StringFormat='{0}°'}" FontFamily="Sen"  TextColor="White" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+
+                        </Border>
+
+                        <Border Grid.Row="1" 
+                                Grid.Column="1" 
+                                HeightRequest="52" 
+                                WidthRequest="130"
+                                Margin="5"
+                                Padding="5,0,5,0"
+                                StrokeThickness="0"
+                                Background="#85D3FD"
+                                StrokeShape="RoundRectangle 8">
+
+                            <Grid ColumnDefinitions="0.3*, 0.7*">
+                                <Path Width="18"
+                                      Height="18"
+                                      Data="M15.7639 4.5C16.3132 3.88625 17.1115 3.5 18 3.5C19.6569 3.5 21 4.84315 21 6.5C21 8.15685 19.6569 9.5 18 9.5H12M5.7639 2C6.31322 1.38625 7.1115 1 8 1C9.65686 1 11 2.34315 11 4C11 5.65685 9.65686 7 8 7H1M9.7639 18C10.3132 18.6137 11.1115 19 12 19C13.6569 19 15 17.6569 15 16C15 14.3431 13.6569 13 12 13H1"
+                                      Stroke="White"
+                                      StrokeLineJoin="Round"
+                                      StrokeThickness="1.5" 
+                                      VerticalOptions="Center"
+                                      HorizontalOptions="Center" />
+                                <Label Grid.Column="1" Margin="5,3,0,0" VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Wind speed" FontFamily="Sen" FontAttributes="Bold" TextColor="White" />
+                                            <Span Text="&#10;" />
+                                            <Span Text="{Binding WeatherData[0].WindSpeed, StringFormat='{0} km/hr'}" FontFamily="Sen"  TextColor="White" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+
+                        </Border>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+                <Image Source="sunny.png" HeightRequest="120" Grid.Column="1" />
+
+                <Label Grid.Column="2" 
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding CurrentTemperature, StringFormat='{0.0}'}" FontSize="80" FontFamily="Sen" TextColor="SlateGray" />
+                            <Span Text="{Binding MinTemperature, StringFormat=' / {0:0}°'}" FontSize="Large" FontFamily="Sen"  TextColor="LightGray" />
+                            <Span Text="&#10;A day filled with abundant sunshine and only a few passing clouds." FontFamily="Sen"  TextColor="#B0B0B0" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <gauge:SfRadialGauge Grid.Column="3" BackgroundColor="Transparent" Margin="0,20">
+
+                    <gauge:SfRadialGauge.Axes>
+                        <gauge:RadialAxis Minimum="0"
+                                          Maximum="12"
+                                          ShowTicks="False" 
+                                          ShowLabels="False">
+                            
+                            <gauge:RadialAxis.AxisLineStyle>
+                                <gauge:RadialLineStyle ThicknessUnit="Factor" 
+                                                       Thickness="0.1">
+                                    <gauge:RadialLineStyle.GradientStops>
+                                        <gauge:GaugeGradientStop Value="2"
+                                                                 Color="#88D8B0" />
+                                        <gauge:GaugeGradientStop Value="5"
+                                                                 Color="#FFD700" />
+                                        <gauge:GaugeGradientStop Value="7"
+                                                                 Color="#FFA500" />
+                                        <gauge:GaugeGradientStop Value="9"
+                                                                 Color="OrangeRed" />
+                                        <gauge:GaugeGradientStop Value="12"
+                                                                 Color="#8A2BE2" />
+                                    </gauge:RadialLineStyle.GradientStops>
+                                </gauge:RadialLineStyle>
+                            </gauge:RadialAxis.AxisLineStyle>
+                            
+                            <gauge:RadialAxis.Pointers>
+                                <gauge:ShapePointer Value="{Binding WeatherData[0].UVIndex}"
+                                                    Offset="-11"
+                                                    EnableAnimation="True"
+                                                    Fill="SlateGray" />
+                            </gauge:RadialAxis.Pointers>
+                            
+                            <gauge:RadialAxis.Annotations>
+                                <gauge:GaugeAnnotation>
+                                    <gauge:GaugeAnnotation.Content>
+                                        <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding WeatherData[0].UVIndex}" FontSize="20" FontFamily="Sen" TextColor="SlateGray" />
+                                                    <Span Text="&#10;" />
+                                                    <Span Text="UV Index" FontFamily="Sen" FontSize="14" TextColor="LightSlateGray" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </gauge:GaugeAnnotation.Content>
+                                </gauge:GaugeAnnotation>
+                            </gauge:RadialAxis.Annotations>
+                            
+                        </gauge:RadialAxis>
+                    </gauge:SfRadialGauge.Axes>
+
+                </gauge:SfRadialGauge>
+
+                <VerticalStackLayout Grid.Column="4" Margin="10,10,20,10" Padding="0,0,35,0" Spacing="10" VerticalOptions="Center">
+
+                    <inputs:SfComboBox ItemsSource="{Binding TemperatureScales}"
+                                       TextMemberPath="Scale"
+                                       DisplayMemberPath="Scale"
+                                       SelectedItem="0"
+                                       BackgroundColor="#33D3D3D3" 
+                                       Placeholder="Celsius"
+                                       IsClearButtonVisible="False" 
+                                       Stroke="#4facfe"
+                                       DropDownBackground="#E0E0E0"
+                                       SelectionChanged="Temperature_SelectionChanged" />
+
+                </VerticalStackLayout>
+
+            </Grid>
+
+        </Border>
+        <!--#endregion-->
+
+        <Border Grid.Row="1"
+                Grid.Column="0"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20,20,20,20"
+                BackgroundColor="White"
+                Margin="0,0,10,0">
+
+            <Grid RowDefinitions="auto, *" Padding="10,7,10,10">
+
+                <HorizontalStackLayout Grid.Row="0" HorizontalOptions="End" Spacing="10">
+
+                    <HorizontalStackLayout Spacing="5" HorizontalOptions="End">
+                        <Label Text="Feels like" TextColor="LightSlateGray" VerticalTextAlignment="Center" />
+                        <buttons:SfSwitch StateChanged="SfSwitch_StateChanged">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup  x:Name="CommonStates">
+                                    <VisualState x:Name="On">
+                                        <VisualState.Setters>
+                                            <Setter Property="SwitchSettings">
+                                                <Setter.Value>
+                                                    <buttons:SwitchSettings TrackHeightRequest="25"
+                                                                            ThumbHeightRequest="15"
+                                                                            ThumbBackground="#808080"
+                                                                            ThumbStrokeThickness="0"
+                                                                            TrackBackground="#D3D3D3"
+                                                                            TrackStrokeThickness="0" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Off">
+                                        <VisualState.Setters>
+                                            <Setter Property="SwitchSettings">
+                                                <Setter.Value>
+                                                    <buttons:SwitchSettings TrackHeightRequest="25"
+                                                                            ThumbHeightRequest="15"
+                                                                            ThumbBackground="#E0E0E0"
+                                                                            ThumbStrokeThickness="0"
+                                                                            TrackBackground="#F0F0F0"
+                                                                            TrackStrokeThickness="0" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </buttons:SfSwitch>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="End">
+                        <segments:SfSegmentedControl ItemsSource="{Binding SegmentItems}"
+                                                     SelectedIndex="0"
+                                                     Stroke="#CC778899"
+                                                     StrokeThickness="1.5"
+                                                     SegmentHeight="30"
+                                                     SegmentWidth="100"
+                                                     WidthRequest="210"
+                                                     CornerRadius="5"
+                                                     SelectionChanged="SfSegmentedControl_SelectionChanged">
+                            <segments:SfSegmentedControl.TextStyle>
+                                <segments:SegmentTextStyle TextColor="#D3D3D3" FontAttributes="Bold" FontFamily="Sen" FontSize="14" />
+                            </segments:SfSegmentedControl.TextStyle>
+                            <segments:SfSegmentedControl.SelectionIndicatorSettings>
+                                <segments:SelectionIndicatorSettings Background="#85D3FD" TextColor="White" />
+                            </segments:SfSegmentedControl.SelectionIndicatorSettings>
+                        </segments:SfSegmentedControl>
+                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+
+                <Border Grid.Row="1"
+                        StrokeThickness="1.5"
+                        Stroke="SlateGray"
+                        StrokeShape="RoundRectangle 10,10,10,10">
+
+                    <ContentView x:Name="chartView" />
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              RowDefinitions="*,*">
+
+            <Border Grid.Row="0"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20,20,20,20"
+                    Margin="0,0,0,5">
+
+                <chart:SfCircularChart Margin="0,0,20,0">
+
+                    <chart:SfCircularChart.Legend>
+                        <chart:ChartLegend Placement="Right">
+                            <chart:ChartLegend.LabelStyle>
+                                <chart:ChartLegendLabelStyle TextColor="SlateGray" FontFamily="Sen" FontSize="13" />
+                            </chart:ChartLegend.LabelStyle>
+                        </chart:ChartLegend>
+                    </chart:SfCircularChart.Legend>
+
+                    <chart:RadialBarSeries ItemsSource="{Binding RainData}"
+                                           XBindingPath="Category"
+                                           YBindingPath="ChancePercentage"
+                                           GapRatio=".4"
+                                           MaximumValue="100"
+                                           CapStyle="BothCurve"
+                                           EnableAnimation="True"
+                                           PaletteBrushes="{StaticResource RadialBarGradients}"/>
+                </chart:SfCircularChart>
+                
+            </Border>
+
+            <Border Grid.Row="1"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20,20,20,20" 
+                    Margin="0,5,0,0">
+
+                <Grid ColumnDefinitions="4*, 6*">
+
+                    <VerticalStackLayout Grid.Column="0" Padding="15,15,0,0" Spacing="10" VerticalOptions="Fill">
+                        <Label Text="Wind speed" FontAttributes="Bold" TextColor="SlateGray" VerticalTextAlignment="Start" />
+                        <Label VerticalTextAlignment="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding WeatherData[0].WindSpeed, StringFormat='{0:0}'}" FontSize="Header" FontFamily="Sen" TextColor="SlateGray" />
+                                    <Span Text=" km/hr" FontFamily="Sen"  TextColor="LightSlateGray" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="Force: 2 &#10;(Light Breeze)" TextColor="LightSlateGray" VerticalTextAlignment="End" />
+                    </VerticalStackLayout>
+
+                    <gauge:SfRadialGauge Background="Transparent" Grid.Column="1">
+
+                        <gauge:RadialAxis Minimum="0" 
+                                          Maximum="360"  
+                                          Interval="45"
+                                          ShowTicks="False" 
+                                          LabelPosition="Inside"
+                                          StartAngle="270" EndAngle="270" 
+                                          LabelCreated="RadialAxis_LabelCreated">
+
+                            <gauge:RadialAxis.AxisLabelStyle>
+                                <gauge:GaugeLabelStyle TextColor="#8fd3ff" FontSize="10" FontFamily="Sen" />
+                            </gauge:RadialAxis.AxisLabelStyle>
+
+                            <gauge:RadialAxis.AxisLineStyle>
+                                <gauge:RadialLineStyle Fill="#8fd3ff" />
+                            </gauge:RadialAxis.AxisLineStyle>
+
+                            <gauge:RadialAxis.Pointers>
+                                <gauge:NeedlePointer Value="300" 
+                                                     NeedleFill="#4facfe" 
+                                                     KnobFill="White" 
+                                                     NeedleLengthUnit="Factor"
+                                                     NeedleLength=".6"
+                                                     KnobRadius="0.1"
+                                                     NeedleEndWidth="13" />
+                                <gauge:NeedlePointer Value="120"
+                                                     EnableAnimation="True" 
+                                                     NeedleFill="#8fd3ff" 
+                                                     KnobFill="White" 
+                                                     NeedleLengthUnit="Factor"
+                                                     NeedleEndWidth="13"
+                                                     NeedleLength=".6" />
+                            </gauge:RadialAxis.Pointers>
+
+                        </gauge:RadialAxis>
+
+                    </gauge:SfRadialGauge>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+    
+</ContentPage>
