@@ -1,8 +1,6 @@
-using Syncfusion.Maui.Toolkit.Charts;
-
 namespace WeatherMonitor;
 
-public partial class SplineAreaChart : SfCartesianChart
+public partial class SplineAreaChart : ContentView
 {
 	public SplineAreaChart()
 	{

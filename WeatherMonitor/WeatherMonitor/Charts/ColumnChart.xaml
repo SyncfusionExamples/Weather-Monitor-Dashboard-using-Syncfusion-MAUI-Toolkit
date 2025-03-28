@@ -1,63 +1,67 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<chart:SfCartesianChart xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:chart="clr-namespace:Syncfusion.Maui.Toolkit.Charts;assembly=Syncfusion.Maui.Toolkit"
                         x:Class="WeatherMonitor.ColumnChart">
 
-    <chart:SfCartesianChart.XAxes>
-        <chart:DateTimeAxis Interval="2" ShowMajorGridLines="False">
-            <chart:DateTimeAxis.LabelStyle>
-                <chart:ChartAxisLabelStyle TextColor="SlateGray" FontFamily="Sen" LabelFormat="h tt" />
-            </chart:DateTimeAxis.LabelStyle>
-        </chart:DateTimeAxis>
-    </chart:SfCartesianChart.XAxes>
+    <chart:SfCartesianChart>
 
-    <chart:SfCartesianChart.YAxes>
-        <chart:NumericalAxis IsVisible="False" />
-    </chart:SfCartesianChart.YAxes>
+        <chart:SfCartesianChart.XAxes>
+            <chart:DateTimeAxis Interval="2" ShowMajorGridLines="False">
+                <chart:DateTimeAxis.LabelStyle>
+                    <chart:ChartAxisLabelStyle TextColor="SlateGray" FontFamily="Sen" LabelFormat="h tt" />
+                </chart:DateTimeAxis.LabelStyle>
+            </chart:DateTimeAxis>
+        </chart:SfCartesianChart.XAxes>
 
-    <chart:SfCartesianChart.Legend>
-        <chart:ChartLegend Placement="Bottom" />
-    </chart:SfCartesianChart.Legend>
+        <chart:SfCartesianChart.YAxes>
+            <chart:NumericalAxis IsVisible="False" />
+        </chart:SfCartesianChart.YAxes>
 
-    <chart:SfCartesianChart.Series>
+        <chart:SfCartesianChart.Legend>
+            <chart:ChartLegend Placement="Bottom" />
+        </chart:SfCartesianChart.Legend>
 
-        <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
-                    XBindingPath="Time"                       
-                    YBindingPath="Temperature"
-                    Fill="#FFA560"
-                    Width=".4"
-                    CornerRadius="2"
-                    EnableAnimation="True"
-                    Label="Temperature" />
+        <chart:SfCartesianChart.Series>
 
-        <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
-                    XBindingPath="Time"
-                    YBindingPath="FeelsLike"
-                    Fill="#F7DC6F"
-                    Width=".4"
-                    CornerRadius="2"
-                    EnableAnimation="True"
-                    Label="Feels Like" />
+            <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
+                XBindingPath="Time"                       
+                YBindingPath="Temperature"
+                Fill="#FFA560"
+                Width=".4"
+                CornerRadius="2"
+                EnableAnimation="True"
+                Label="Temperature" />
 
-        <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
-                    XBindingPath="Time"
-                    YBindingPath="UVIndex"
-                    Fill="#AF7AC5"
-                    Width=".4"
-                    CornerRadius="2"
-                    EnableAnimation="True"
-                    Label="UV Index" />
+            <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
+                XBindingPath="Time"
+                YBindingPath="FeelsLike"
+                Fill="#F7DC6F"
+                Width=".4"
+                CornerRadius="2"
+                EnableAnimation="True"
+                Label="Feels Like" />
 
-        <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
-                    XBindingPath="Time"
-                    YBindingPath="WindSpeed"
-                    Fill="#85D3FD"
-                    Width=".4"
-                    CornerRadius="2"
-                    EnableAnimation="True"
-                    Label="Wind Speed" />
+            <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
+                XBindingPath="Time"
+                YBindingPath="UVIndex"
+                Fill="#AF7AC5"
+                Width=".4"
+                CornerRadius="2"
+                EnableAnimation="True"
+                Label="UV Index" />
 
-    </chart:SfCartesianChart.Series>
+            <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
+                XBindingPath="Time"
+                YBindingPath="WindSpeed"
+                Fill="#85D3FD"
+                Width=".4"
+                CornerRadius="2"
+                EnableAnimation="True"
+                Label="Wind Speed" />
 
-</chart:SfCartesianChart>
+        </chart:SfCartesianChart.Series>
+
+    </chart:SfCartesianChart>
+
+</ContentView>
