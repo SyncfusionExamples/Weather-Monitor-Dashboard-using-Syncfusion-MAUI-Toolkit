@@ -18,39 +18,12 @@ namespace WeatherMonitor
 
         public WeatherViewModel()
         {
-            City = "Los Santos";
-            DateTime time = DateTime.Today;
-            Date = time.ToString("MMMM dd, yyyy");
+            GenerateWeatherData();
 
-            WeatherData = new ObservableCollection<WeatherDataModel>();
-            Random random = new();
-
-            for (int i = 1; i <= 24; i++)
-            {
-                float temp = MathF.Round(random.Next(24, 28) + random.NextSingle(), 1);
-
-                WeatherData.Add(new WeatherDataModel
-                {
-                    Time = time,
-                    Temperature = temp,
-                    WindSpeed = MathF.Round(random.Next(1, 15) + random.NextSingle(), 1),
-                    WindDirection = random.Next(0, 360),
-                    Humidity = random.Next(40, 90),
-                    UVIndex = MathF.Round(random.Next(0, 12) + random.NextSingle(), 1),
-                    Dew = MathF.Round(random.Next(5, 20) + random.NextSingle(), 1),
-                    FeelsLike = MathF.Round(temp + random.Next(5, 11) + random.NextSingle(), 1)
-                });
-
-                time = time.AddHours(1);
-            }
-
-            MinTemperature = WeatherData.Min(min => min.Temperature);
-            MaxTemperature = WeatherData.Max(max => max.Temperature);
-
-            RainData = new ObservableCollection<WeatherDataModel>
+            ClimateFactors = new ObservableCollection<WeatherDataModel>
             {
                 new() { Category = "Rain", ChancePercentage = 55 },
-                new() { Category = "Humidity", ChancePercentage = WeatherData[0].Humidity },
+                new() { Category = "Humidity", ChancePercentage = WeatherData![0].Humidity },
                 new() { Category = "Dew", ChancePercentage = WeatherData[0].Dew }
             };
 
@@ -75,11 +48,11 @@ namespace WeatherMonitor
 
         public string? City { get; set; }
 
-        public string Date { get; set; }
+        public string? Date { get; set; }
 
         public ObservableCollection<WeatherDataModel> WeatherData { get; set; }
 
-        public ObservableCollection<WeatherDataModel> RainData { get; set; }
+        public ObservableCollection<WeatherDataModel> ClimateFactors { get; set; }
 
         public ObservableCollection<SfSegmentItem> SegmentItems { get; set; }
 
@@ -168,6 +141,38 @@ namespace WeatherMonitor
                 feelsYPath = value;
                 OnPropertyChanged(nameof(FeelsYPath));
             }
+        }
+
+        void GenerateWeatherData()
+        {
+            City = "Los Santos";
+            DateTime time = DateTime.Today;
+            Date = time.ToString("MMMM dd, yyyy");
+
+            WeatherData = new ObservableCollection<WeatherDataModel>();
+            Random random = new();
+
+            for (int i = 1; i <= 24; i++)
+            {
+                float temp = MathF.Round(random.Next(24, 28) + random.NextSingle(), 1);
+
+                WeatherData.Add(new WeatherDataModel
+                {
+                    Time = time,
+                    Temperature = temp,
+                    WindSpeed = MathF.Round(random.Next(1, 15) + random.NextSingle(), 1),
+                    WindDirection = random.Next(0, 360),
+                    Humidity = random.Next(40, 90),
+                    UVIndex = MathF.Round(random.Next(0, 12) + random.NextSingle(), 1),
+                    Dew = MathF.Round(random.Next(5, 20) + random.NextSingle(), 1),
+                    FeelsLike = MathF.Round(temp + random.Next(5, 11) + random.NextSingle(), 1)
+                });
+
+                time = time.AddHours(1);
+            }
+
+            MinTemperature = WeatherData.Min(min => min.Temperature);
+            MaxTemperature = WeatherData.Max(max => max.Temperature);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

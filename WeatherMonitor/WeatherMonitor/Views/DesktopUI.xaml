@@ -406,7 +406,7 @@
                         </chart:ChartLegend>
                     </chart:SfCircularChart.Legend>
 
-                    <chart:RadialBarSeries ItemsSource="{Binding RainData}"
+                    <chart:RadialBarSeries ItemsSource="{Binding ClimateFactors}"
                                            XBindingPath="Category"
                                            YBindingPath="ChancePercentage"
                                            GapRatio=".4"
@@ -467,7 +467,6 @@
                                                      KnobRadius="0.1"
                                                      NeedleEndWidth="13" />
                                 <gauge:NeedlePointer Value="120"
-                                                     EnableAnimation="True" 
                                                      NeedleFill="#8fd3ff" 
                                                      KnobFill="White" 
                                                      NeedleLengthUnit="Factor"
