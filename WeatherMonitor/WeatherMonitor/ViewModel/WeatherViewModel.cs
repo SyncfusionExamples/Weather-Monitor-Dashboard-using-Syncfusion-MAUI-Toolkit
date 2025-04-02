@@ -147,7 +147,7 @@ namespace WeatherMonitor
         {
             City = "Los Santos";
             DateTime time = DateTime.Today;
-            Date = time.ToString("MMMM dd, yyyy");
+            Date = time.ToString("MMMM dd");
 
             WeatherData = new ObservableCollection<WeatherDataModel>();
             Random random = new();

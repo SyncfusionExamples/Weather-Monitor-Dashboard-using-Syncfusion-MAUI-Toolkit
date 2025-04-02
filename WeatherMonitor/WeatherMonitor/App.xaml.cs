@@ -12,7 +12,7 @@
 #if WINDOWS || MACCATALYST
             return new Window(new DesktopUI());
 #else
-            return new Window(new DesktopUI());
+            return new Window(new MobileUI());
 #endif
         }
     }

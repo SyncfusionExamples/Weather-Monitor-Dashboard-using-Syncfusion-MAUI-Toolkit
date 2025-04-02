@@ -24,7 +24,7 @@
         <chart:SfCartesianChart.XAxes>
             <chart:DateTimeAxis Interval="2" ShowMajorGridLines="False">
                 <chart:DateTimeAxis.LabelStyle>
-                    <chart:ChartAxisLabelStyle TextColor="SlateGray" FontFamily="Sen" LabelFormat="h tt" />
+                    <chart:ChartAxisLabelStyle TextColor="SlateGray" FontFamily="Sen" LabelFormat="h tt" FontSize="10" />
                 </chart:DateTimeAxis.LabelStyle>
             </chart:DateTimeAxis>
         </chart:SfCartesianChart.XAxes>
@@ -32,7 +32,7 @@
         <chart:SfCartesianChart.YAxes>
             <chart:NumericalAxis Interval="{Binding Interval}" Maximum="{Binding YAxisMax}">
                 <chart:NumericalAxis.LabelStyle>
-                    <chart:ChartAxisLabelStyle LabelFormat="0°" TextColor="SlateGray" FontFamily="Sen" />
+                    <chart:ChartAxisLabelStyle LabelFormat="0°" TextColor="SlateGray" FontFamily="Sen" FontSize="10" />
                 </chart:NumericalAxis.LabelStyle>
             </chart:NumericalAxis>
         </chart:SfCartesianChart.YAxes>
@@ -40,7 +40,7 @@
         <chart:SfCartesianChart.Legend>
             <chart:ChartLegend Placement="Bottom">
                 <chart:ChartLegend.LabelStyle>
-                    <chart:ChartLegendLabelStyle FontFamily="Sen" TextColor="DarkSlateGrey" />
+                    <chart:ChartLegendLabelStyle FontFamily="Sen" TextColor="DarkSlateGrey" FontSize="10" />
                 </chart:ChartLegend.LabelStyle>
             </chart:ChartLegend>
         </chart:SfCartesianChart.Legend>
@@ -62,24 +62,23 @@
         <chart:SfCartesianChart.Series>
 
             <chart:SplineAreaSeries ItemsSource="{Binding WeatherData}"
-                        XBindingPath="Time"
-                        YBindingPath="{Binding TemperatureYPath}"
-                        Opacity=".6"
-                        Label="Temperature"
-                        EnableAnimation="True" 
-                        Fill="{StaticResource gradientFill}" />
+                                    XBindingPath="Time"
+                                    YBindingPath="{Binding TemperatureYPath}"
+                                    Opacity=".6"
+                                    Label="Temperature"
+                                    EnableAnimation="True" 
+                                    Fill="{StaticResource gradientFill}" />
 
             <chart:SplineSeries ItemsSource="{Binding WeatherData}"
-                    XBindingPath="Time"
-                    YBindingPath="{Binding FeelsYPath}"
-                    IsVisible="{Binding SeriesIsVisible}"
-                    StrokeWidth="1.5"
-                    Label="Feels like"
-                    Fill="#FF6F00"
-                    LegendIcon="SeriesType"
-                    StrokeDashArray="{StaticResource strokeDash}">
-
-            </chart:SplineSeries>
+                                XBindingPath="Time"
+                                YBindingPath="{Binding FeelsYPath}"
+                                IsVisible="{Binding SeriesIsVisible}"
+                                StrokeWidth="1.5"
+                                Label="Feels like"
+                                Fill="#FF6F00"
+                                EnableAnimation="True"
+                                LegendIcon="SeriesType"
+                                StrokeDashArray="{StaticResource strokeDash}" />
 
         </chart:SfCartesianChart.Series>
 

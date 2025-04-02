@@ -5,8 +5,6 @@
         private float temperature;
         private static readonly Random random = new Random();
 
-        public DateTime Time { get; set; }
-
         public float Temperature
         {
             get => temperature;
@@ -16,6 +14,8 @@
                 Fahrenheit = MathF.Round((value * 9 / 5) + 32, 1);
             }
         }
+
+        public DateTime Time { get; set; }
 
         public float Celsius { get; set; }
 
