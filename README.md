@@ -7,6 +7,12 @@ This sample delves into building a Weather Monitoring Dashboard using the Syncfu
 * **Wind Direction Compass:** The wind direction is visualized using the .NET MAUI SfRadialGauge control, which offers an engaging way to display wind movement. This example illustrates how such visualizations can be applied to real-world scenarios.
 * **Visualizing Climate factors with RadialbarSeries:** To create a visually engaging and modern visualization of key weather metrics such as rain percentage, humidity, and dew chances, we utilize the RadialBarSeries in the MAUI Toolkit SfCircularChart.
 
+## Syncfusion Controls used
+* MAUI Toolkit Charts 
+* MAUI Toolkit Segmented Control 
+* MAUI SfRadialGauge 
+* MAUI SfSwitch and SfComboBox
+
 ### Output
 ![Weather Monitor Dashboard output screenshot](https://github.com/user-attachments/assets/be3c9bde-989f-42f7-90e6-8a2b63e50d71)
 
