@@ -8,8 +8,7 @@ This sample delves into building a Weather Monitoring Dashboard using the Syncfu
 * **Visualizing Climate factors with RadialbarSeries:** To create a visually engaging and modern visualization of key weather metrics such as rain percentage, humidity, and dew chances, we utilize the RadialBarSeries in the MAUI Toolkit SfCircularChart.
 
 ### Output
-
-## Troubleshooting
+![Weather Monitor Dashboard output screenshot](https://github.com/user-attachments/assets/be3c9bde-989f-42f7-90e6-8a2b63e50d71)
 
 ### Path Too Long Exception
 
