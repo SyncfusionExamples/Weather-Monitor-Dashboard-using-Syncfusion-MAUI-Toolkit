@@ -68,7 +68,7 @@
                 <VerticalStackLayout Grid.Column="0" Spacing="10" VerticalOptions="Center" Padding="10,0,0,0">
 
                     <HorizontalStackLayout>
-                        <Label Margin="5,2,0,0">
+                        <Label Margin="5,2,0,0" x:DataType="local:WeatherViewModel">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding City}" FontSize="12" FontFamily="Sen" FontAttributes="Bold" TextColor="LightSlateGray" />
@@ -84,7 +84,8 @@
 
                 <Label Grid.Column="1" 
                        HorizontalTextAlignment="Center" 
-                       VerticalTextAlignment="Center">
+                       VerticalTextAlignment="Center"
+                       x:DataType="local:WeatherViewModel">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="{Binding CurrentTemperature, StringFormat='{0.0}'}" FontSize="40" FontFamily="Sen" TextColor="SlateGray" />
@@ -122,6 +123,7 @@
 
                             <gauge:RadialAxis.Pointers>
                                 <gauge:ShapePointer Value="{Binding WeatherData[0].UVIndex}"
+                                                    x:DataType="local:WeatherViewModel"
                                                     Offset="-11"
                                                     ShapeHeight="8"
                                                     ShapeWidth="8"
@@ -132,7 +134,7 @@
                             <gauge:RadialAxis.Annotations>
                                 <gauge:GaugeAnnotation>
                                     <gauge:GaugeAnnotation.Content>
-                                        <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                                        <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" x:DataType="local:WeatherViewModel">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{Binding WeatherData[0].UVIndex}" FontSize="14" FontFamily="Sen" TextColor="SlateGray" />
@@ -153,6 +155,7 @@
                 <VerticalStackLayout Grid.Column="4" Padding="0,0,35,0" VerticalOptions="Center">
 
                     <inputs:SfComboBox ItemsSource="{Binding TemperatureScales}"
+                                       x:DataType="local:WeatherViewModel"
                                        TextMemberPath="Scale"
                                        DisplayMemberPath="Scale"
                                        SelectedItem="0"
@@ -232,6 +235,7 @@
 
                     <HorizontalStackLayout HorizontalOptions="End">
                         <segments:SfSegmentedControl ItemsSource="{Binding SegmentItems}"
+                                                     x:DataType="local:WeatherViewModel"
                                                      SelectedIndex="0"
                                                      Stroke="#778899"
                                                      StrokeThickness="1"
@@ -283,6 +287,7 @@
                     </chart:SfCircularChart.Legend>
 
                     <chart:RadialBarSeries ItemsSource="{Binding ClimateFactors}"
+                                           x:DataType="local:WeatherViewModel"
                                            XBindingPath="Category"
                                            YBindingPath="ChancePercentage"
                                            GapRatio=".4"
@@ -305,7 +310,7 @@
 
                     <HorizontalStackLayout Grid.Row="0" Padding="10,10,0,0" HorizontalOptions="Center">
                         <Label Text="Wind speed: " FontSize="12" FontAttributes="Bold" TextColor="SlateGray"></Label>
-                        <Label>
+                        <Label x:DataType="local:WeatherViewModel">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding WeatherData[0].WindSpeed, StringFormat='{0:0}'}" FontSize="12" FontFamily="Sen" TextColor="SlateGray" />
