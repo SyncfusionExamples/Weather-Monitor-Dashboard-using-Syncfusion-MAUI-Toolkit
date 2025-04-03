@@ -16,6 +16,8 @@ This sample delves into building a Weather Monitoring Dashboard using the Syncfu
 ### Output
 ![Weather Monitor Dashboard output screenshot](https://github.com/user-attachments/assets/be3c9bde-989f-42f7-90e6-8a2b63e50d71)
 
+## Troubleshooting
+
 ### Path Too Long Exception
 
 If you are facing a "Path too long" exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.
