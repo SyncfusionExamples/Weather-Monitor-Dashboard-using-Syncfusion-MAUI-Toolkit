@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:WeatherMonitor"
              x:Class="WeatherMonitor.ColumnChart">
 
-    <chart:SfCartesianChart>
+    <chart:SfCartesianChart x:DataType="local:WeatherViewModel">
 
         <chart:SfCartesianChart.XAxes>
             <chart:DateTimeAxis Interval="2" ShowMajorGridLines="False">
@@ -30,7 +30,6 @@
         <chart:SfCartesianChart.Series>
 
             <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
-                                x:DataType="local:WeatherViewModel"
                                 XBindingPath="Time"                       
                                 YBindingPath="Temperature"
                                 Fill="#F7DC6F"
@@ -40,7 +39,6 @@
                                 Label="Temperature" />
 
             <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
-                                x:DataType="local:WeatherViewModel"
                                 XBindingPath="Time"
                                 YBindingPath="FeelsLike"
                                 Fill="#FFA560"
@@ -50,7 +48,6 @@
                                 Label="Feels Like" />
 
             <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
-                                x:DataType="local:WeatherViewModel"
                                 XBindingPath="Time"
                                 YBindingPath="UVIndex"
                                 Fill="#AF7AC5"
@@ -60,7 +57,6 @@
                                 Label="UV Index" />
 
             <chart:ColumnSeries ItemsSource="{Binding WeatherData}"
-                                x:DataType="local:WeatherViewModel"
                                 XBindingPath="Time"
                                 YBindingPath="WindSpeed"
                                 Fill="#85D3FD"

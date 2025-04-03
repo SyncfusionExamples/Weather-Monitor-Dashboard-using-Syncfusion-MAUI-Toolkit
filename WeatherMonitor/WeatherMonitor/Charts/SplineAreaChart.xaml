@@ -20,7 +20,7 @@
         </LinearGradientBrush>
     </ContentView.Resources>
 
-    <chart:SfCartesianChart>
+    <chart:SfCartesianChart x:DataType="local:WeatherViewModel">
 
         <chart:SfCartesianChart.XAxes>
             <chart:DateTimeAxis Interval="2" ShowMajorGridLines="False">
@@ -63,7 +63,6 @@
         <chart:SfCartesianChart.Series>
 
             <chart:SplineAreaSeries ItemsSource="{Binding WeatherData}"
-                                    x:DataType="local:WeatherViewModel"
                                     XBindingPath="Time"
                                     YBindingPath="{Binding TemperatureYPath}"
                                     Opacity=".6"
@@ -72,7 +71,6 @@
                                     Fill="{StaticResource gradientFill}" />
 
             <chart:SplineSeries ItemsSource="{Binding WeatherData}"
-                                x:DataType="local:WeatherViewModel"
                                 XBindingPath="Time"
                                 YBindingPath="{Binding FeelsYPath}"
                                 IsVisible="{Binding SeriesIsVisible}"
