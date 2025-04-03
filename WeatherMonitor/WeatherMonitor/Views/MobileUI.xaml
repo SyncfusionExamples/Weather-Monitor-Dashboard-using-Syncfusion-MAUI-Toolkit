@@ -315,7 +315,7 @@
                         </Label>
                     </HorizontalStackLayout>
 
-                    <gauge:SfRadialGauge Background="Transparent" Grid.Row="1">
+                    <gauge:SfRadialGauge Background="Transparent" Grid.Row="1" HorizontalOptions="Center">
 
                         <gauge:RadialAxis Minimum="0" 
                                           Maximum="360"  
