@@ -281,7 +281,7 @@
                     <chart:SfCircularChart.Legend>
                         <chart:ChartLegend Placement="Bottom">
                             <chart:ChartLegend.LabelStyle>
-                                <chart:ChartLegendLabelStyle TextColor="SlateGray" FontFamily="Sen" FontSize="10" />
+                                <chart:ChartLegendLabelStyle Margin="-2" TextColor="SlateGray" FontFamily="Sen" FontSize="10" />
                             </chart:ChartLegend.LabelStyle>
                         </chart:ChartLegend>
                     </chart:SfCircularChart.Legend>
