@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Toolkit.Charts;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:local="clr-namespace:WeatherMonitor"
+             x:Class="WeatherMonitor.SplineAreaChart">
+
+    <ContentView.Resources>
+        <DoubleCollection x:Key="strokeDash">
+            <x:Double>5</x:Double>
+            <x:Double>2</x:Double>
+        </DoubleCollection>
+
+        <LinearGradientBrush x:Key="gradientFill">
+            <GradientStop Color="#FFE082" Offset="0.0"/>
+            <GradientStop Color="#FFD54F" Offset="0.25"/>
+            <GradientStop Color="#FFB74D" Offset="0.5"/>
+            <GradientStop Color="#FFA726" Offset="0.75"/>
+            <GradientStop Color="#FF6F00" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentView.Resources>
+
+    <chart:SfCartesianChart x:DataType="local:WeatherViewModel">
+
+        <chart:SfCartesianChart.XAxes>
+            <chart:DateTimeAxis Interval="2" ShowMajorGridLines="False">
+                <chart:DateTimeAxis.LabelStyle>
+                    <chart:ChartAxisLabelStyle TextColor="SlateGray" FontFamily="Sen" LabelFormat="h tt" FontSize="10" />
+                </chart:DateTimeAxis.LabelStyle>
+            </chart:DateTimeAxis>
+        </chart:SfCartesianChart.XAxes>
+
+        <chart:SfCartesianChart.YAxes>
+            <chart:NumericalAxis Interval="{Binding Interval}" Maximum="{Binding YAxisMax}" x:DataType="local:WeatherViewModel">
+                <chart:NumericalAxis.LabelStyle>
+                    <chart:ChartAxisLabelStyle LabelFormat="0°" TextColor="SlateGray" FontFamily="Sen" FontSize="10" />
+                </chart:NumericalAxis.LabelStyle>
+            </chart:NumericalAxis>
+        </chart:SfCartesianChart.YAxes>
+
+        <chart:SfCartesianChart.Legend>
+            <chart:ChartLegend Placement="Bottom">
+                <chart:ChartLegend.LabelStyle>
+                    <chart:ChartLegendLabelStyle FontFamily="Sen" TextColor="DarkSlateGrey" FontSize="10" />
+                </chart:ChartLegend.LabelStyle>
+            </chart:ChartLegend>
+        </chart:SfCartesianChart.Legend>
+
+        <chart:SfCartesianChart.TrackballBehavior>
+            <chart:ChartTrackballBehavior DisplayMode="NearestPoint">
+                <chart:ChartTrackballBehavior.LineStyle>
+                    <chart:ChartLineStyle Stroke="#4facfe" StrokeWidth="2" />
+                </chart:ChartTrackballBehavior.LineStyle>
+                <chart:ChartTrackballBehavior.LabelStyle>
+                    <chart:ChartLabelStyle TextColor="White" LabelFormat="{}0.00°" Background="SlateGray" FontAttributes="Bold" FontSize="14" />
+                </chart:ChartTrackballBehavior.LabelStyle>
+                <chart:ChartTrackballBehavior.MarkerSettings>
+                    <chart:ChartMarkerSettings Height="10" Width="10" Stroke="#4facfe" StrokeWidth="2" Fill="white" />
+                </chart:ChartTrackballBehavior.MarkerSettings>
+            </chart:ChartTrackballBehavior>
+        </chart:SfCartesianChart.TrackballBehavior>
+
+        <chart:SfCartesianChart.Series>
+
+            <chart:SplineAreaSeries ItemsSource="{Binding WeatherData}"
+                                    XBindingPath="Time"
+                                    YBindingPath="{Binding TemperatureYPath}"
+                                    Opacity=".6"
+                                    Label="Temperature"
+                                    EnableAnimation="True" 
+                                    Fill="{StaticResource gradientFill}" />
+
+            <chart:SplineSeries ItemsSource="{Binding WeatherData}"
+                                XBindingPath="Time"
+                                YBindingPath="{Binding FeelsYPath}"
+                                IsVisible="{Binding SeriesIsVisible}"
+                                StrokeWidth="1.5"
+                                Label="Feels like"
+                                Fill="#FF6F00"
+                                EnableAnimation="True"
+                                LegendIcon="SeriesType"
+                                StrokeDashArray="{StaticResource strokeDash}" />
+
+        </chart:SfCartesianChart.Series>
+
+    </chart:SfCartesianChart>
+
+</ContentView>
